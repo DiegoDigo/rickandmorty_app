@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +39,15 @@ fun DetailPage(detailParam: DetailParam, viewModel: DetailPageViewModel = hiltVi
     val loading = viewModel.loading.value
 
     Scaffold(
-        topBar = { AppTopBarComponent(title = detailParam.name) },
+        topBar = {
+            AppTopBarComponent(
+                title = detailParam.name,
+                navigationIcon = {
+                    IconButton(onClick = {/* Do Something*/ }) {
+                        Icon(Icons.Filled.ArrowBack, null, tint = WhiteColor)
+                    }
+                })
+        },
         content = {
             ContentPage(detail, loading)
         }

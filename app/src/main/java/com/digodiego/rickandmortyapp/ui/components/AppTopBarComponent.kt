@@ -11,7 +11,7 @@ import com.digodiego.rickandmortyapp.ui.theme.WhiteColor
 import com.digodiego.rickandmortyapp.ui.theme.chicleFamily
 
 @Composable
-fun AppTopBarComponent(title: String) {
+fun AppTopBarComponent(title: String, navigationIcon: @Composable (() -> Unit)? = null) {
     TopAppBar(
         title = {
             Text(
@@ -19,6 +19,7 @@ fun AppTopBarComponent(title: String) {
                 style = TextStyle(color = WhiteColor, fontSize = 30.sp, fontFamily = chicleFamily)
             )
         },
+        navigationIcon = navigationIcon,
         elevation = 0.dp,
         backgroundColor = PrimaryColor,
 
