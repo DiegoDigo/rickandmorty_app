@@ -22,7 +22,7 @@ class HomePageViewModel @Inject constructor(
 
     private fun getCharacter() {
         viewModelScope.launch {
-            characters.value = api.getCharacters().characters.map {
+            characters.value = api.getCharacters().result.map {
                 CharacterUI(it.id, it.name, it.origin.name, it.image)
             }.toList()
         }

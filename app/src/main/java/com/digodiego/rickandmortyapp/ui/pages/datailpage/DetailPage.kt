@@ -33,7 +33,7 @@ import com.digodiego.rickandmortyapp.ui.theme.WhiteColor
 import com.digodiego.rickandmortyapp.ui.theme.chicleFamily
 
 @Composable
-fun DetailPage(detailParam: DetailParam, viewModel: DetailPageViewModel = hiltViewModel()) {
+fun DetailPage(navController :NavController, detailParam: DetailParam, viewModel: DetailPageViewModel = hiltViewModel()) {
     viewModel.getCharacter(detailParam.id)
     val detail = viewModel.character.value
     val loading = viewModel.loading.value
@@ -43,7 +43,9 @@ fun DetailPage(detailParam: DetailParam, viewModel: DetailPageViewModel = hiltVi
             AppTopBarComponent(
                 title = detailParam.name,
                 navigationIcon = {
-                    IconButton(onClick = {/* Do Something*/ }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(Icons.Filled.ArrowBack, null, tint = WhiteColor)
                     }
                 })

@@ -13,7 +13,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.digodiego.rickandmortyapp.ui.pages.datailpage.DetailPage
+import com.digodiego.rickandmortyapp.ui.pages.locationpages.EpisodePage
 import com.digodiego.rickandmortyapp.ui.pages.homepage.HomePage
+import com.digodiego.rickandmortyapp.ui.pages.locationpages.LocationPage
 import com.digodiego.rickandmortyapp.ui.params.DetailParam
 import com.digodiego.rickandmortyapp.ui.theme.PrimaryColor
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,10 +33,19 @@ class MainActivity : ComponentActivity() {
                     composable("home_page") {
                         HomePage(navController)
                     }
+                    composable("episodes_page") {
+                        EpisodePage(navController)
+                    }
+                    composable("location_page") {
+                        LocationPage(navController)
+                    }
                     composable("detail_page") {
-                        val itemsProvider = navController.previousBackStackEntry?.arguments?.getParcelable<DetailParam>("detailParam")
+                        val itemsProvider =
+                            navController.previousBackStackEntry?.arguments?.getParcelable<DetailParam>(
+                                "detailParam"
+                            )
                         itemsProvider?.let { items ->
-                            DetailPage(detailParam = items)
+                            DetailPage(navController, detailParam = items)
                         }
                     }
                 }
@@ -42,7 +53,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 
 
 @Composable

@@ -66,7 +66,7 @@ fun HomePage(
         },
 
         drawerContent = {
-            NavDrawer(scaffoldState)
+            NavDrawer(navController, scaffoldState)
         }
     )
 }
@@ -159,7 +159,7 @@ fun CardItem(navController: NavController, character: CharacterUI) {
 }
 
 @Composable
-fun NavDrawer(scaffoldState: ScaffoldState) {
+fun NavDrawer(navController: NavController, scaffoldState: ScaffoldState) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -176,9 +176,27 @@ fun NavDrawer(scaffoldState: ScaffoldState) {
                     .height(120.dp)
             )
             Divider()
-            NavOptions(title = "Home", painterResource(id = R.drawable.ic_home) , scaffoldState = scaffoldState)
-            NavOptions(title = "Episodes", painterResource(id = R.drawable.ic_tv) , scaffoldState = scaffoldState)
-            NavOptions(title = "Planets", painterResource(id = R.drawable.ic_planets) , scaffoldState = scaffoldState)
+            NavOptions(
+                navController = navController,
+                routerName = "home_page",
+                title = "Home",
+                painter = painterResource(id = R.drawable.ic_home),
+                scaffoldState = scaffoldState
+            )
+            NavOptions(
+                navController,
+                routerName = "episodes_page",
+                title = "Episodes",
+                painterResource(id = R.drawable.ic_tv),
+                scaffoldState = scaffoldState
+            )
+            NavOptions(
+                navController,
+                routerName = "location_page",
+                title = "Planets",
+                painterResource(id = R.drawable.ic_planets),
+                scaffoldState = scaffoldState
+            )
         }
     }
 
@@ -186,7 +204,13 @@ fun NavDrawer(scaffoldState: ScaffoldState) {
 
 
 @Composable
-fun NavOptions(title: String, painter: Painter, scaffoldState: ScaffoldState) {
+fun NavOptions(
+    navController: NavController,
+    routerName: String,
+    title: String,
+    painter: Painter,
+    scaffoldState: ScaffoldState
+) {
     val scope = rememberCoroutineScope()
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -206,6 +230,7 @@ fun NavOptions(title: String, painter: Painter, scaffoldState: ScaffoldState) {
                 .clickable {
                     scope.launch {
                         scaffoldState.drawerState.close()
+                        navController.navigate(routerName)
                     }
                 },
             style = TextStyle(
